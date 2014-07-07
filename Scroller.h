@@ -14,10 +14,12 @@ public:
 
 
 		Resources::getInstance().load<std::string>("sine_shader.glsl",
-			[=](const std::string &source) {
+			[=](std::shared_ptr<string> source) {
 				try {
-					program.setFragmentSource(source);
-				} catch(shader_exception &e) {}
+					program.setFragmentSource(*source);
+				} catch(shader_exception &e) {
+					LOGD("ERROR");
+				}
 			}, sineShaderF);
 
 
@@ -79,7 +81,7 @@ private:
 			// MODIFY UV HERE
 			vec4 color = texture2D(sTexture, UV);
 			// MODIFY COLOR HERE
-			gl_FragColor = rgb * color; 
+			gl_FragColor = rgb * color;
 		}
 	)";
 
