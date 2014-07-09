@@ -6,16 +6,16 @@ namespace demofx {
 class StarField : public Effect {
 public:
 	StarField(grappix::RenderTarget &target) : target(target) {
-		image::bitmap bm(screen.width(), screen.height());
+		image::bitmap bm(grappix::screen.width(), grappix::screen.height());
 		bm.clear(0x00000000);
 		for(int y=0; y<bm.height(); y++) {
 			auto x = rand() % bm.width();
 			bm[y*bm.width()+x] = bm[y*bm.width()+x + 1] = 0xff666666;
 			bm[y*bm.width()+x + 2] = 0xff444444;
 		}
-		starTexture = Texture(bm);
+		starTexture = grappix::Texture(bm);
 
-		starProgram = get_program(TEXTURED_PROGRAM).clone();
+		starProgram = grappix::get_program(grappix::TEXTURED_PROGRAM).clone();
 		starProgram.setFragmentSource(starShaderF);
 	}
 

@@ -8,29 +8,29 @@ namespace demofx {
 
 class Scroller : public Effect {
 public:
-	Scroller(grappix::RenderTarget &target) : target(target), scr(screen.width()+200, 180) {
-		font = Font("data/ObelixPro.ttf", 24, 512 | Font::DISTANCE_MAP);
-		program = get_program(TEXTURED_PROGRAM).clone();
+	Scroller(grappix::RenderTarget &target) : target(target), scr(grappix::screen.width()+200, 180) {
+		font = grappix::Font("data/ObelixPro.ttf", 24, 512 | grappix::Font::DISTANCE_MAP);
+		program = grappix::get_program(grappix::TEXTURED_PROGRAM).clone();
 
 
-		Resources::getInstance().load<std::string>("sine_shader.glsl",
+		grappix::Resources::getInstance().load<std::string>("sine_shader.glsl",
 			[=](std::shared_ptr<string> source) {
 				try {
 					program.setFragmentSource(*source);
-				} catch(shader_exception &e) {
+				} catch(grappix::shader_exception &e) {
 					LOGD("ERROR");
 				}
 			}, sineShaderF);
 
 
-		fprogram = get_program(FONT_PROGRAM_DF).clone();
+		fprogram = grappix::get_program(grappix::FONT_PROGRAM_DF).clone();
 		fprogram.setFragmentSource(fontShaderF);
 		font.set_program(fprogram);
 	}
 
 	virtual void set(const std::string &what, const std::string &val, float seconds = 0.0) {
 		if(what == "font") {
-			font = Font(val, 24, 512 | Font::DISTANCE_MAP);
+			font = grappix::Font(val, 24, 512 | grappix::Font::DISTANCE_MAP);
 		} else {
 			scrollText = val;
 			xpos = target.width() + 100;
@@ -58,11 +58,11 @@ public:
 
 private:
 	grappix::RenderTarget target;
-	Font font;
-	Program program;
-	Program fprogram;
+	grappix::Font font;
+	grappix::Program program;
+	grappix::Program fprogram;
 	int xpos = -9999;
-	Texture scr;
+	grappix::Texture scr;
 	std::string scrollText;
 	int scrollLen;
 
