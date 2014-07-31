@@ -2,6 +2,8 @@
 #define SCOLLER_H
 
 #include "Effect.h"
+
+#include <coreutils/file.h>
 #include <grappix/grappix.h>
 
 namespace demofx {
@@ -9,11 +11,10 @@ namespace demofx {
 class Scroller : public Effect {
 public:
 	Scroller(grappix::RenderTarget &target) : target(target), scr(grappix::screen.width()+200, 180) {
-		font = grappix::Font("data/ObelixPro.ttf", 24, 512 | grappix::Font::DISTANCE_MAP);
+		//font = grappix::Font("data/ObelixPro.ttf", 24, 512 | grappix::Font::DISTANCE_MAP);
 		program = grappix::get_program(grappix::TEXTURED_PROGRAM).clone();
 
-
-		grappix::Resources::getInstance().load<std::string>("sine_shader.glsl",
+		grappix::Resources::getInstance().load<std::string>(utils::File::getCacheDir() + "sine_shader.glsl",
 			[=](std::shared_ptr<string> source) {
 				try {
 					program.setFragmentSource(*source);
@@ -25,12 +26,13 @@ public:
 
 		fprogram = grappix::get_program(grappix::FONT_PROGRAM_DF).clone();
 		fprogram.setFragmentSource(fontShaderF);
-		font.set_program(fprogram);
+		//font.set_program(fprogram);
 	}
 
 	virtual void set(const std::string &what, const std::string &val, float seconds = 0.0) {
 		if(what == "font") {
 			font = grappix::Font(val, 24, 512 | grappix::Font::DISTANCE_MAP);
+			//font.set_program(fprogram);
 		} else {
 			scrollText = val;
 			xpos = target.width() + 100;

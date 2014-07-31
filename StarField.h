@@ -8,7 +8,7 @@ public:
 	StarField(grappix::RenderTarget &target) : target(target) {
 		image::bitmap bm(grappix::screen.width(), grappix::screen.height());
 		bm.clear(0x00000000);
-		for(int y=0; y<bm.height(); y++) {
+		for(unsigned y=0; y<bm.height(); y++) {
 			auto x = rand() % bm.width();
 			bm[y*bm.width()+x] = bm[y*bm.width()+x + 1] = 0xff666666;
 			bm[y*bm.width()+x + 2] = 0xff444444;
