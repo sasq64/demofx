@@ -13,10 +13,10 @@ public:
 	virtual void set(const std::string &what, int val, float seconds = 0.0) {}
 
 	virtual void fadeIn(float seconds = 1.0) {
-		tween::make_tween().to(alpha, 1.0).seconds(seconds);
+		tween::Tween::make().to(alpha, 1.0).seconds(seconds);
 	}
 	virtual void fadeOut(float seconds = 1.0) {
-		tween::make_tween().to(alpha, 0.0).seconds(seconds);	
+		tween::Tween::make().to(alpha, 0.0).seconds(seconds);	
 	}
 
 	union {
